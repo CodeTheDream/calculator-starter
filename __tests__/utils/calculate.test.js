@@ -1,34 +1,34 @@
-import { add, subtract, multiply, divide } from '../utils/calculate'
+import { add, subtract, multiply, divide } from '../../utils/calculate'
 
 describe("Calculator - add", () => {
     test('adds two numbers together and returns the sum', () => {
         expect(add(1, 2)).toBe(3);
     });
 
-    test('adds two float numbers', () => {
-        expect(add(0.5, 0.5)).toBe(1);
+    test('adds two float numbers together', () => {
+        expect(add(0.2, 0.1)).toBeCloseTo(0.3);
     });
 
     test('adds one number and one float', () => {
-        expect(add(1, 0.5)).toBe(1.5);
+        expect(add(1, 0.5)).toBeCloseTo(1.5);
     })
 
     test('Throws an error if input is not a number', () => {
         expect(() => {
             add('a', 'b');
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 
     test('Throws an error if input is null', () => {
         expect(() => {
-            add(null, ''); // empty string or null?
-        }).toThrow();
+            add('', ''); // empty string or null?
+        }).toThrow('Must enter numbers');
     })
 
     test('Throws an error if input is undefined', () => {
         expect(() => {
             add(undefined, undefined);
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 
 })
@@ -39,11 +39,11 @@ describe("Calculator - subtract", () => {
     });
 
     test('subtracts two float numbers', () => {
-        expect(subtract(1.5, 0.5)).toBe(1);
+        expect(subtract(1.5, 0.5)).toBeCloseTo(1);
     });
 
     test('subtracts a number and a float number', () => {
-        expect(subtract(1, 0.5)).toBe(0.5);
+        expect(subtract(1, 0.5)).toBeCloseTo(0.5);
     });
 
     test('subtracts greater number from smaller number and returns negative number', () => {
@@ -57,19 +57,19 @@ describe("Calculator - subtract", () => {
     test('Throws an error if input is not a number', () => {
         expect(() => {
             subtract('a', 'b');
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 
     test('Throws an error if input is null', () => {
         expect(() => {
             subtract('', '');
-        }).toThrow();
+        }).toThrow('Must enter numbers');
     })
 
     test('Throws an error if input is undefined', () => {
         expect(() => {
             subtract(undefined, undefined);
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 
 })
@@ -92,25 +92,25 @@ describe("Calculator - multiply", () => {
     });
 
     test('mulitiplies float numbers', () => {
-        expect(multiply(1.5, 0.5)).toBe(0.75);
+        expect(multiply(1.5, 0.5)).toBeCloseTo(0.75);
     });
 
     test('Throws an error if input is not a number', () => {
         expect(() => {
             multiply('a', 'b');
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 
     test('Throws an error if input is null', () => {
         expect(() => {
             multiply('', '');
-        }).toThrow();
+        }).toThrow('Must enter numbers');
     })
 
     test('Throws an error if input is undefined', () => {
         expect(() => {
             multiply(undefined, undefined);
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 
 })
@@ -121,7 +121,7 @@ describe("Calculator - divide", () => {
     });
 
     test('divides two float numbers', () => {
-        expect(divide(7.4, .2)).toBe(37);
+        expect(divide(7.4, .2)).toBeCloseTo(37);
     });
 
     test('divides two negative numbers', () => {
@@ -131,24 +131,24 @@ describe("Calculator - divide", () => {
     test('throws error is dividing by zero', () => {
         expect(() => {
             divide(2, 0);
-        }).toThrow();
+        }).toThrow(`Can't divide by zero`);
     });
 
     test('Throws an error if input is not a number', () => {
         expect(() => {
             divide('a', 'b');
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 
     test('Throws an error if input is null', () => {
         expect(() => {
             multiply('', '');
-        }).toThrow();
+        }).toThrow('Must enter numbers');
     })
 
     test('Throws an error if input is undefined', () => {
         expect(() => {
             divide(undefined, undefined);
-        }).toThrow();
+        }).toThrow('Enter only numbers');
     })
 })
