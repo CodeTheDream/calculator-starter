@@ -9,6 +9,7 @@ export default function handler(req, res) {
     }
 
     const params = extractParams(req.query.params);
+    console.log("params:", params)
     let result;
     switch (params.operation) {
       case "add":
@@ -42,8 +43,8 @@ function extractParams(queryParams) {
   try {
     const params = {
       operation: queryParams[0],
-      first: parseInt(queryParams[1]),
-      second: parseInt(queryParams[2]),
+      first: Number(queryParams[1]),
+      second: Number(queryParams[2]),
     };
     return params;
   } catch (e) {
