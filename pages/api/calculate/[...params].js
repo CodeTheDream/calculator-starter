@@ -40,15 +40,19 @@ function extractParams(queryParams) {
     );
   }
 
-  try {
-    const params = {
-      operation: queryParams[0],
-      first: Number(queryParams[1]),
-      second: Number(queryParams[2]),
-    };
-    return params;
-  } catch (e) {
+  // try {
+  if (isNaN(queryParams[1]) || isNaN(queryParams[2])) {
     throw new Error(`Failed to process query params. Received: ${queryParams}`);
   }
+  const params = {
+    operation: queryParams[0],
+    first: Number(queryParams[1]),
+    second: Number(queryParams[2]),
+  };
+  return params;
+
+  // } catch (e) {
+  //   throw new Error(`Failed to process query params. Received: ${queryParams}`);
+  // }
 }
 
