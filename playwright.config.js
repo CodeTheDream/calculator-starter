@@ -13,7 +13,7 @@ const config = {
     // Timeout per test
     timeout: 30 * 1000,
     // Test directory
-    testDir: path.join(__dirname, 'e2e'),
+    testDir: "./tests/",
     // If a test fails, retry it additional 2 times
     retries: 2,
     // Artifacts folder where screenshots, videos, and traces are stored.
@@ -47,18 +47,28 @@ const config = {
     projects: [
         {
             name: 'chromium',
+            testMatch: /tests\/(api)\/.*(test|spec)\.(js|ts|mjs)/,
+            use: {
+                ...devices['Desktop Chrome'],
+            },
+        },
+        {
+            name: 'chromium',
+            testMatch: /tests\/(e2e)\/.*(test|spec)\.(js|ts|mjs)/,
             use: {
                 ...devices['Desktop Chrome'],
             },
         },
         {
             name: 'Desktop Firefox',
+            testMatch: /tests\/(e2e)\/.*(test|spec)\.(js|ts|mjs)/,
             use: {
                 ...devices['Desktop Firefox'],
             },
         },
         {
             name: 'Desktop Safari',
+            testMatch: /tests\/(e2e)\/.*(test|spec)\.(js|ts|mjs)/,
             use: {
                 ...devices['Desktop Safari'],
             },
@@ -66,12 +76,14 @@ const config = {
         // Test against mobile viewports.
         // {
         //     name: 'Mobile Chrome',
+        //     testMatch: /tests\/(e2e)\/.*(test|spec)\.(js|ts|mjs)/,
         //     use: {
         //         ...devices['Pixel 5'],
         //     },
         // },
         // {
         //     name: 'Mobile Safari',
+        //     testMatch: /tests\/(e2e)\/.*(test|spec)\.(js|ts|mjs)/,
         //     use: devices['iPhone 12'],
         // },
     ],

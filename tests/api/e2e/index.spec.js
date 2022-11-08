@@ -91,3 +91,47 @@ test('Contains an error when first and secons are NaN', async ({ page }) => {
     const result = page.locator("#result");
     await expect(result).toContainText("Failed to process query params. Received: add,a,b");
 });
+
+
+// Page Navigation
+test.describe('navigation', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto("/");
+    });
+
+    test('navigate to other page and have desired url', async ({ page }) => {
+        await page.locator('#otherPageBtn').click();
+        await expect(page).toHaveURL('/nonAmaz');
+    });
+
+    test('Finding title of other page', async ({ page }) => {
+        await page.locator('#otherPageBtn').click();
+        await expect(page.locator('#title')).toHaveText("The Non-Amazing Calculator");
+    });
+
+
+    //////////////
+    test('Finds button on nonAmaz page', async ({ page }) => {
+        await page.locator('#otherPageBtn').click();
+        const locator = page.locator('Button[type="button"]');
+        await expect(locator).toBeVisible();
+    })
+});
+
+// Page two
+test.describe('navigation', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto("/nonAmaz");
+    });
+
+    test('With Tab it focuses on the button', async ({ page }) => {
+        await page.keyboard.press('Tab');
+        await expect(page.locator('#equationBtn')).toBeFocused();
+    })
+
+    test('Clicking the button the text appears', async ({ page }) => {
+        await page.locator('.equationBtn').click();
+        await expect(page.locator('#equationResult')).toHaveText('Equation cannot be solved');
+    })
+
+});
