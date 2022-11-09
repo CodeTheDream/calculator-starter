@@ -1,4 +1,25 @@
 import { add, subtract, multiply, divide } from '../../utils/calculate'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import Calculate from '../../components/Calculator'
+import userEvent from "@testing-library/user-event"
+
+/**
+ * @jest-environment jsdom
+ */
+
+describe('Calculate Component', () => {
+    it('renders calculate button', () => {
+        render(<Calculate />);
+        const button = screen.getByRole('button', { name: 'Calculate' });
+        expect(button).toBeInTheDocument();
+    })
+
+    // it('fill form', () => {
+    //     render(<Calculate/>);
+    //     userEvent.type()
+    // })
+})
 
 describe("Calculator - add", () => {
     test('adds two numbers together and returns the sum', () => {
