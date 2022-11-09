@@ -1,4 +1,17 @@
 import { add, subtract, multiply, divide } from '../../utils/calculate'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import Calculate from '../../components/Calculator'
+
+/**
+ * @jest-environment jsdom
+ */
+
+describe('Calculate Component', () => {
+    it('renders calculate button', () => {
+        render(<Calculate />)
+    })
+})
 
 describe("Calculator - add", () => {
     test('adds two numbers together and returns the sum', () => {
