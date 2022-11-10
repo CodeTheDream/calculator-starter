@@ -3,7 +3,6 @@ import {
   Box,
   Paper,
   TextField,
-  MenuItem,
   FormControl,
   NativeSelect,
   Button,
@@ -32,6 +31,7 @@ const Calculator = () => {
     };
 
     axios
+      // for testing with msw --> .get(`/api/calculate/add/1/2`)
       .get(`/api/calculate/${query.operation}/${query.first}/${query.second}`)
       .then((res) => {
         setResult(res.data.result);

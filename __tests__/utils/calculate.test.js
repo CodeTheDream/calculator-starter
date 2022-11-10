@@ -1,28 +1,47 @@
 import { add, subtract, multiply, divide } from '../../utils/calculate'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import Calculate from '../../components/Calculator'
+import Calculator from '../../components/Calculator'
 import userEvent from "@testing-library/user-event"
-import { act } from 'react-dom/test-utils'
+import { rest } from 'msw'
+import { setupServer } from "msw/node"
 
+const server = setupServer(
+    rest.get("http://localhost/api/calculate/*", async (req, res, ctx) => {
+        return res(ctx.json({ result: 3 }))
+        //needs mock axios to pass
+    })
+)
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
+test('renders result when fetched successfully', async () => {
+
+    render(<Calculator />);
+
+    await userEvent.click(screen.getByRole("button", { name: /calculate/i }))
+    setTimeout(() => {
+        expect(screen.getByRole("heading").textContent).toBe("3")
+    }, 1000)
+})
 
 
 describe('Calculate Component', () => {
     it('renders calculate button', () => {
-        render(<Calculate />);
+        render(<Calculator />);
         const button = screen.getByRole('button', { name: 'Calculate' });
         expect(button).toBeInTheDocument();
     });
 
     it('should correctly set default option', () => {
-        render(<Calculate />)
+        render(<Calculator />)
         expect(screen.getByRole('option', { name: 'Op' }).selected).toBe(true)
     })
 
 
     it('select op +', async () => {
-        render(<Calculate />);
+        render(<Calculator />);
         await userEvent.selectOptions(
             //Find the select element
             screen.getByRole('combobox'), ["add"]
@@ -31,7 +50,7 @@ describe('Calculate Component', () => {
     });
 
     // it('fill form', async () => {
-    //     render(<Calculate />);
+    //     render(<Calculator />);
 
     //     userEvent.type(screen.getByRole('textbox', { name: /first number/i })), 1;
 
