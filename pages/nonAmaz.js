@@ -12,7 +12,7 @@ export default function NonAmaz() {
         <Container maxWidth="sm">
             <Stack>
                 <Typography variant="h2" gutterBottom id='title'>
-                    The Non-Amazing Calculator
+                The Non-Amazing Calculator!
                 </Typography>
                 <Button
                     variant="contained"

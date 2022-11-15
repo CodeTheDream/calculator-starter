@@ -1,6 +1,7 @@
 import { Typography, Container, Stack, Button } from "@mui/material";
-import Calculator from "../components/calculator";
+import Calculator from "../components/Calculator";
 import Link from 'next/link'
+import Heading from '../components/Heading'
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
           The Amazing Calculator
         </Typography>
         <Calculator />
+        <Heading/>
       </Stack>
     </Container>
   );
