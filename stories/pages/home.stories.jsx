@@ -2,6 +2,7 @@ import Home from '../../pages/index'
 import { within, userEvent, findByRole, waitFor } from '@storybook/testing-library';
 import { rest } from 'msw';
 import { expect } from '@storybook/jest';
+import {action, actions} from '@storybook/addon-actions'
 
 export default {
     title: "Pages/Home",

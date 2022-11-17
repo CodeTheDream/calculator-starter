@@ -1,15 +1,18 @@
 import { Typography, Container, Stack, Button } from "@mui/material";
 import Calculator from "../components/Calculator";
-import Link from 'next/link'
 import Heading from '../components/Heading'
+import LinkButton from "../components/LinkButton";
 
 export default function Home() {
   return (
     <Container maxWidth="sm">
       <Stack>
-        <Link href={{ pathname: '/nonAmaz', }} style={{ textDecoration: 'none' }} passHref>
-          <Button variant="contained" color="primary" id='otherPageBtn'>Other Page</Button>
-        </Link>
+        <LinkButton 
+        path='/nonAmaz' 
+        variant="contained"
+        color="primary"
+        >
+          Other page</LinkButton>
         <Typography variant="h2" gutterBottom sx={{ marginBottom: "30px" }}>
           The Amazing Calculator
         </Typography>

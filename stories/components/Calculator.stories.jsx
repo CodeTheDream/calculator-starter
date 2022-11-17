@@ -12,18 +12,27 @@ export default {
     msw: {
       handlers: [
         rest.get("/api/calculate/*", (req, res, ctx) => {
-          if (!req.params) {
-            return res(ctx.status(500, "no params"));
+          if (req.params[0] === "//") {
+            return res(ctx.status(500, "no params"),ctx.json({ message: "no params" }));
           }
 
           const params = req.params[0].split("/");
-
-          if (params.length !== 3 || isNaN(params[1]) || isNaN(params[2])) {
+          // console.log(params)
+          // if (params.length !== 3 ) {
+          //   return res(
+          //     ctx.status(
+          //       500,
+          //       `didn't receive expected params. got: ${params}`
+          //     ),ctx.json({ message: `didn't receive expected params. got: ${params}` })
+          //   );
+          // }
+          
+          if  (isNaN(params[1]) || params[1] === '' || isNaN(params[2]) || params[2] === '') {
             return res(
               ctx.status(
                 500,
-                `didn't receive expected params. got: ${req.params}`
-              )
+                `didn't receive expected params. got: ${params}`
+              ),ctx.json({ message: `didn't receive expected params. got: ${params}` })
             );
           }
 
@@ -56,8 +65,8 @@ InteractiveTest.play = async ({ canvasElement }) => {
   });
 };
 
-export const ErrorTest = Template.bind({});
-ErrorTest.play = async ({canvasElement}) => {
+export const StringErrorTest = Template.bind({});
+StringErrorTest.play = async ({canvasElement}) => {
     const canvas = within(canvasElement);
     const firstInput = await canvas.findByRole('textbox', { name: /first number/i });
     const secondInput = await canvas.findByRole('textbox', { name: /second number/i });
@@ -67,9 +76,47 @@ ErrorTest.play = async ({canvasElement}) => {
     userEvent.click(canvas.getByRole("button", { name: /calculate/i }))
 
     await waitFor(()=> {
-        expect(canvasElement.querySelector('#result').innerText).toBe("Cannot convert object to primitive value")
+        expect(canvasElement.querySelector('#result').innerText).toBe("didn't receive expected params. got: add,a,2")
     })
     await waitFor(()=> {
-        expect(canvas.getByText("Cannot convert object to primitive value")).toBeInTheDocument();
+        expect(canvas.getByText("didn't receive expected params. got: add,a,2")).toBeInTheDocument();
+    })
+}
+
+export const NoParams = Template.bind({});
+NoParams.play = async ({canvasElement}) => {
+    const canvas = within(canvasElement);
+    userEvent.click(canvas.getByRole("button", { name: /calculate/i }))
+
+    await waitFor(()=> {
+        expect(canvasElement.querySelector('#result').innerText).toBe("no params")
+      })
+}
+
+export const TwoParams = Template.bind({});
+TwoParams.play = async ({canvasElement}) => {
+    const canvas = within(canvasElement);
+    const secondInput = await canvas.findByRole('textbox', { name: /second number/i });
+    userEvent.selectOptions(canvas.getByRole('combobox'), ["add"]);
+    userEvent.type(secondInput, '2')
+    userEvent.click(canvas.getByRole("button", { name: /calculate/i }))
+
+    await waitFor(()=> {
+        expect(canvasElement.querySelector('#result').innerText).toBe(`didn't receive expected params. got: add,,2`)
+    })
+}
+
+export const WrongParams = Template.bind({});
+WrongParams.play = async ({canvasElement}) => {
+    const canvas = within(canvasElement);
+    const firstInput = await canvas.findByRole('textbox', { name: /first number/i });
+    const secondInput = await canvas.findByRole('textbox', { name: /second number/i });
+    userEvent.type(firstInput, '?');
+    userEvent.selectOptions(canvas.getByRole('combobox'), ["add"]);
+    userEvent.type(secondInput, '!')
+    userEvent.click(canvas.getByRole("button", { name: /calculate/i }))
+
+    await waitFor(()=> {
+        expect(canvasElement.querySelector('#result').innerText).toBe(`didn't receive expected params. got: add,`)
     })
 }
