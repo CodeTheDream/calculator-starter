@@ -48,7 +48,8 @@
     "jest-environment-jsdom": "^29.3.1",
     "msw": "^0.48.2",
     "msw-storybook-addon": "^1.6.3",
-    "storybook-addon-next": "^1.6.10"
+    "storybook-addon-next": "^1.6.10",
+    "storybook-addon-next-router": "^4.0.1"
   },
   "msw": {
     "workerDirectory": "public"

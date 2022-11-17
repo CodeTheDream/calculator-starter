@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import { ThemeProvider, createTheme} from "@mui/material/styles";
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { RouterContext } from "next/dist/shared/lib/router-context";
 
 // Initialize MSW
 initialize();
@@ -29,5 +30,8 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/,
     },
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
   },
 }
