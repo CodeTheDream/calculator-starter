@@ -3,7 +3,14 @@ import Link from 'next/link'
  import { Button } from '@mui/material'
  import PropTypes from 'prop-types'
  
- function LinkButton({children, path, variant, color, ...props}) {
+type BtnProps = {
+  children?: React.ReactNode,
+  path?: string,
+  variant?: "text" | "outlined" | "contained",
+  color?: 'primary' | 'secondary'
+}
+
+ function LinkButton({children, path, variant, color, ...props}: BtnProps) {
    return (
     <Link href={{ pathname: `${path}`, }} style={{ textDecoration: 'none' }} passHref>
     <Button variant={variant} color={color} id='otherPageBtn'>{children}</Button>

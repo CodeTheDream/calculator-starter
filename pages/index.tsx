@@ -17,7 +17,7 @@ export default function Home() {
           The Amazing Calculator
         </Typography>
         <Calculator />
-        <Heading/>
+        <Heading level={4} background={"blue"}>"This is my heading"</Heading>
       </Stack>
     </Container>
   );

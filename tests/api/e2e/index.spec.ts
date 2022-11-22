@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test('basic calculator functionality with add', async ({ page }) => {
     await page.goto("/");
@@ -106,11 +106,9 @@ test.describe('navigation', () => {
 
     test('Finding title of other page', async ({ page }) => {
         await page.locator('#otherPageBtn').click();
-        await expect(page.locator('#title')).toHaveText("The Non-Amazing Calculator");
+        await expect(page.locator('#title')).toHaveText("The Non-Amazing Calculator!");
     });
 
-
-    //////////////
     test('Finds button on nonAmaz page', async ({ page }) => {
         await page.locator('#otherPageBtn').click();
         const locator = page.locator('Button[type="button"]');

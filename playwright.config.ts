@@ -1,4 +1,5 @@
 //import { devices } from '@playwright/test'
+import type { PlaywrightTestConfig } from '@playwright/test';
 import path from 'path'
 const { devices } = require("@playwright/test")
 
@@ -9,7 +10,7 @@ const PORT = process.env.PORT || 3000
 const baseURL = `http://localhost:${PORT}`
 
 // Reference: https://playwright.dev/docs/test-configuration
-const config = {
+const config: PlaywrightTestConfig = {
     // Timeout per test
     timeout: 30 * 1000,
     // Test directory

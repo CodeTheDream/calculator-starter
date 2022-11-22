@@ -1,6 +1,7 @@
 import { add, subtract, multiply, divide } from "../../../utils/calculate";
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(req, res) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method !== "GET") {
       throw new Error(
@@ -8,9 +9,16 @@ export default function handler(req, res) {
       );
     }
 
-    const params = extractParams(req.query.params);
+    const queryParams = req.query.params;
+    console.log("Query Params",queryParams)
+
+    if (!Array.isArray(queryParams)) {
+      throw new Error(`Query params shoud have 3 items. ${queryParams}`)
+    }
+
+    const params = extractParams(queryParams);
     console.log("params:", params)
-    let result;
+    let result: number;
     switch (params.operation) {
       case "add":
         result = add(params.first, params.second);
@@ -29,19 +37,25 @@ export default function handler(req, res) {
     }
     res.status(200).json({ result });
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    res.status(500).json((e as Error).message);
   }
 }
 
-function extractParams(queryParams) {
+interface CalculatorParams {
+  operation: string;
+  first: number;
+  second: number;
+}
+
+function extractParams(queryParams: string[]): CalculatorParams {
+  console.log("array:", queryParams)
   if (queryParams.length !== 3) {
     throw new Error(
       `Query params should have 3 items. Received ${queryParams.length}: ${queryParams}`
     );
   }
 
-  // try {
-  if (isNaN(queryParams[1]) || isNaN(queryParams[2])) {
+  if (isNaN(Number(queryParams[1])) || isNaN(Number(queryParams[2]))) {
     throw new Error(`Failed to process query params. Received: ${queryParams}`);
   }
   const params = {
@@ -50,9 +64,5 @@ function extractParams(queryParams) {
     second: Number(queryParams[2]),
   };
   return params;
-
-  // } catch (e) {
-  //   throw new Error(`Failed to process query params. Received: ${queryParams}`);
-  // }
 }
 
