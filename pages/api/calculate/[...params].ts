@@ -10,6 +10,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     const queryParams = req.query.params;
+    console.log("Query Params",queryParams)
 
     if (!Array.isArray(queryParams)) {
       throw new Error(`Query params shoud have 3 items. ${queryParams}`)
@@ -36,7 +37,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     res.status(200).json({ result });
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    res.status(500).json((e as Error).message);
   }
 }
 
@@ -47,6 +48,7 @@ interface CalculatorParams {
 }
 
 function extractParams(queryParams: string[]): CalculatorParams {
+  console.log("array:", queryParams)
   if (queryParams.length !== 3) {
     throw new Error(
       `Query params should have 3 items. Received ${queryParams.length}: ${queryParams}`

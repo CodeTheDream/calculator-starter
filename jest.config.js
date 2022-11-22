@@ -17,8 +17,8 @@ const customJestConfig = {
     // ignores the playwright test and excludes e2e directory
     testPathIgnorePatterns: [
         "<rootDir>node_modules/",
-        "<rootDir>/.next/",
-        "<rootDir>/e2e/",
+        "<rootDir>/tests/", // is ignoring playwright directory
+        //"<rootDir>/e2e/",
     ],
 }
 

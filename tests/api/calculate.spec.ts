@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test.describe("API testing", () => {
 
@@ -28,25 +28,20 @@ test.describe("API testing", () => {
 
     test("wrong operation to request", async ({ request }) => {
         const result = await request.get('/api/calculate/wrong/4/2', {});
-        expect(result.status(500));
+        expect(result.status());
         expect(await result.json()).toEqual({ message: `Unsupported operation wrong` })
     });
 
     test("wrong query params - only one number", async ({ request }) => {
         const result = await request.get('/api/calculate/add/2', {});
-        expect(result.status(500));
+        expect(result.status()).toBe(500);
         expect(await result.json()).toEqual({ message: `Query params should have 3 items. Received 2: add,2` })
     });
 
     test("wrong query params - no operation", async ({ request }) => {
         const result = await request.get('/api/calculate/2/2', {});
-        expect(result.status(500));
+        expect(result.status()).toBe(500);
         expect(await result.json()).toEqual({ message: `Query params should have 3 items. Received 2: 2,2` })
     });
 
-    test("wrong query params - no params", async ({ request }) => {
-        const result = await request.get('/api/calculate/', {});
-        expect(result.status(500));
-        // expect(await result.json()).toEqual({ message: `Query params should have 3 items. Received 0: "",` })
-    });
 });
