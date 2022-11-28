@@ -89,7 +89,7 @@ NoParams.play = async ({canvasElement}) => {
     userEvent.click(canvas.getByRole("button", { name: /calculate/i }))
 
     await waitFor(()=> {
-        expect(canvasElement.querySelector('#result').innerText).toBe("no params")
+        expect(canvasElement.querySelector('#result').innerText).toBe("Must fill out form")
       })
 }
 

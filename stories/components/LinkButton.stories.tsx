@@ -1,4 +1,5 @@
 import LinkButton from "../../components/LinkButton";
+import { Meta, Story, ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
     title: 'Components/LinkButton',
@@ -12,9 +13,12 @@ export default {
         //actions: ('onClick', 'onMouseOver'),
         onmouseover: {action: 'mouse over'}
     },
-};
+} as ComponentMeta<typeof LinkButton>;
 
-const Template = (args) => <LinkButton {...args}/>
+const Template: ComponentStory<typeof LinkButton> = (args) => <LinkButton {...args}/>
+
+
+//const Template = (args) => <LinkButton {...args}/>
 
 export const Button = Template.bind({});
 Button.args = {

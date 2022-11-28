@@ -18,12 +18,12 @@ type BtnProps = {
    )
  }
 
- LinkButton.propTypes = {
-    children: PropTypes.string,
-    variant: PropTypes.string,
-    color: PropTypes.oneOf(['primary', 'secondary']),
-    path: PropTypes.string,
- }
+//  LinkButton.propTypes = {
+//     children: PropTypes.string,
+//     variant: PropTypes.string,
+//     color: PropTypes.oneOf(['primary', 'secondary']),
+//     path: PropTypes.string,
+//  }
  
  export default LinkButton
 
