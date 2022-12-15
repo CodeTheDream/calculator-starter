@@ -15,22 +15,40 @@ import axios from "axios";
 
 import { useState } from "react";
 
-const Calculator = () => {
+const Calculator = ():JSX.Element => {
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState("");
 
-  const handleChange = (e) => {
+  /*provided type of event
+   if we are not returning anythin in function you can set return type as void 
+  or TS will infer its void
+  */
+  const handleChange = (e:React.ChangeEvent<HTMLSelectElement>):void => {
     setOperation(e.target.value);
   };
 
-  const handleCalculate = (e) => {
+  // adding interface to tell typescript that first and second are these types
+  interface MyForm extends EventTarget {
+    first: HTMLInputElement;
+    second: HTMLInputElement;
+  }
+
+  const handleCalculate = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // target (event )now is of specific interface 
+    const target = e.target as MyForm;
     const query = {
       operation: operation,
-      first: e.target.first.value,
-      second: e.target.second.value,
+      first: target.first.value,
+      second: target.second.value,
     };
 
+    // you need to give the type of the data
+    interface Query{
+      operation: string;
+      first: number;
+      second: number;
+    }
     axios
       .get(`/api/calculate/${query.operation}/${query.first}/${query.second}`)
       .then((res) => {

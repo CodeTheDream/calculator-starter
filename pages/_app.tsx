@@ -6,14 +6,20 @@ import "@fontsource/roboto/700.css";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import React from "react";
+// importing props. This is standard and not dependent on function component name
+import type {AppProps} from "next/app"
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
-});
+}); 
 
-function MyApp({ Component, pageProps }) {
+// annotating the props with interface
+
+
+function MyApp({ Component, pageProps }:AppProps):JSX.Element {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
