@@ -1,6 +1,7 @@
 import { add, subtract, multiply, divide } from "../../../utils/calculate";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req, res) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method !== "GET") {
       throw new Error(
@@ -27,13 +28,27 @@ export default function handler(req, res) {
         throw new Error(`Unsupported operation ${params.operation}`);
     }
     res.status(200).json({ result });
-  } catch (e) {
-    res.status(500).json({ message: e.message });
+  } catch (e:any) {
+    let eMsg = "unknown error";
+    if (e instanceof Error) { 
+      eMsg = e.message
+    }
+      res.status(500).json({ message: eMsg});
   }
 }
 
-function extractParams(queryParams) {
-  if (queryParams.length !== 3) {
+/*
+we know the type of queryParams because when you hover over req.query.params it 
+tells you the type. It's a union type because its possibly one or many types
+
+Since queryParams is possibly undefined you have to throw an error and not just console.log 
+because otherwise code will keep running as undefined and not stop for error
+*/
+function extractParams(queryParams: string | string[] | undefined) {
+  if (queryParams === undefined) {
+    throw new Error(`${queryParams} is undefined`);
+
+  } else if (queryParams.length !== 3) {
     throw new Error(
       `Query params should have 3 items. Received ${queryParams.length}: ${queryParams}`
     );
@@ -45,9 +60,18 @@ function extractParams(queryParams) {
       first: parseInt(queryParams[1]),
       second: parseInt(queryParams[2]),
     };
+
+    /*
+    since params can possibly be undefined we need to place a check to see if the first & second
+    params are numbers
+    */
+    if (isNaN(params.first) || isNaN(params.second)) {
+      throw new Error(
+        ` first input or second input was not a number! Received ${params.first} and  ${params.second}`
+      );
+    }
     return params;
   } catch (e) {
     throw new Error(`Failed to process query params. Received: ${queryParams}`);
   }
 }
-
