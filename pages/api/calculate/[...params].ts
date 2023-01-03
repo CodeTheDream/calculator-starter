@@ -35,7 +35,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
       res.status(500).json({ message: eMsg});
   }
-}
+} 
+
 
 /*
 we know the type of queryParams because when you hover over req.query.params it 
@@ -71,7 +72,11 @@ function extractParams(queryParams: string | string[] | undefined) {
       );
     }
     return params;
-  } catch (e) {
-    throw new Error(`Failed to process query params. Received: ${queryParams}`);
+  } catch (e: any) {
+    let errMsg = `Failed to process query params. Received: ${queryParams}`;
+    if (e instanceof Error) {
+      errMsg = e.message;
+    }
+    throw new Error(errMsg);
   }
 }

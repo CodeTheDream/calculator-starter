@@ -13,9 +13,9 @@ import {
 import { OutlinedInput } from "@mui/material";
 import axios from "axios";
 
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
-const Calculator = ():JSX.Element => {
+const Calculator = (): JSX.Element => {
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState("");
 
@@ -23,7 +23,7 @@ const Calculator = ():JSX.Element => {
    if we are not returning anythin in function you can set return type as void 
   or TS will infer its void
   */
-  const handleChange = (e:React.ChangeEvent<HTMLSelectElement>):void => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     setOperation(e.target.value);
   };
 
@@ -33,9 +33,9 @@ const Calculator = ():JSX.Element => {
     second: HTMLInputElement;
   }
 
-  const handleCalculate = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleCalculate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // target (event )now is of specific interface 
+    // target (event )now is of specific interface
     const target = e.target as MyForm;
     const query = {
       operation: operation,
@@ -44,7 +44,7 @@ const Calculator = ():JSX.Element => {
     };
 
     // you need to give the type of the data
-    interface Query{
+    interface Query {
       operation: string;
       first: number;
       second: number;
@@ -115,4 +115,3 @@ const Calculator = ():JSX.Element => {
   );
 };
 export default Calculator;
-
