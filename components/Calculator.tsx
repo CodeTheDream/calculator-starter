@@ -18,6 +18,8 @@ import { useState, ChangeEvent, FormEvent } from "react";
 const Calculator = (): JSX.Element => {
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState("");
+  // const first = useRef<HTMLInputElement>();
+  // const second = useRef<HTMLInputElement>();
 
   /*provided type of event
    if we are not returning anythin in function you can set return type as void 
@@ -104,7 +106,7 @@ const Calculator = (): JSX.Element => {
         <Grid2 xs={12}>
           <Box>
             <Paper>
-              <Typography align="center" variant="h3" gutterBottom>
+              <Typography align="center" variant="h3" gutterBottom id="result">
                 {result}
               </Typography>
             </Paper>
