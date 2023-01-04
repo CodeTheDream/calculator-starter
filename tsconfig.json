@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/Heading.jsx"  ],
+, "components/Heading.jsx", "stories/components/Calc.stories.jsx"  ],
   "exclude": [
     "node_modules"
   ]
