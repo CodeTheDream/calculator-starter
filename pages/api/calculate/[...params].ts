@@ -9,12 +9,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       );
     }
 
-    if (!Array.isArray(req.query.params)) {
-      throw new Error(`Expected multiple params. got: ${req.query.params}`);
-    }
-
     const params = extractParams(req.query.params);
-    let result: number;
+    let result;
     switch (params.operation) {
       case "add":
         result = add(params.first, params.second);
@@ -32,23 +28,28 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         throw new Error(`Unsupported operation ${params.operation}`);
     }
     res.status(200).json({ result });
-  } catch (e: any) {
-    let errMsg = "Unknown Error";
-    if (e instanceof Error) {
-      errMsg = e.message;
+  } catch (e:any) {
+    let eMsg = "unknown error";
+    if (e instanceof Error) { 
+      eMsg = e.message
     }
-    res.status(500).json({ message: errMsg });
+      res.status(500).json({ message: eMsg});
   }
-}
+} 
 
-interface QueryParams {
-  operation: string;
-  first: number;
-  second: number;
-}
 
-function extractParams(queryParams: string[]): QueryParams {
-  if (queryParams.length !== 3) {
+/*
+we know the type of queryParams because when you hover over req.query.params it 
+tells you the type. It's a union type because its possibly one or many types
+
+Since queryParams is possibly undefined you have to throw an error and not just console.log 
+because otherwise code will keep running as undefined and not stop for error
+*/
+function extractParams(queryParams: string | string[] | undefined) {
+  if (queryParams === undefined) {
+    throw new Error(`${queryParams} is undefined`);
+
+  } else if (queryParams.length !== 3) {
     throw new Error(
       `Query params should have 3 items. Received ${queryParams.length}: ${queryParams}`
     );
@@ -61,12 +62,15 @@ function extractParams(queryParams: string[]): QueryParams {
       second: parseInt(queryParams[2]),
     };
 
+    /*
+    since params can possibly be undefined we need to place a check to see if the first & second
+    params are numbers
+    */
     if (isNaN(params.first) || isNaN(params.second)) {
       throw new Error(
-        `Params "first" and "second" must be numbers. Received: ${queryParams}`
+        ` first input or second input was not a number! Received ${params.first} and  ${params.second}`
       );
     }
-
     return params;
   } catch (e: any) {
     let errMsg = `Failed to process query params. Received: ${queryParams}`;
@@ -76,4 +80,3 @@ function extractParams(queryParams: string[]): QueryParams {
     throw new Error(errMsg);
   }
 }
-
