@@ -48,23 +48,23 @@ const Calculator = () => {
   };
 
   const handleReset = (e) => {
-    e.preventDefault();
-    setOperation("");
-    setResult(welcomeMessage);
-    firstRef.current.value = null;
-    secondRef.current.value = null;
-    document.activeElement.blur();
-  };
+    e.preventDefault()
+    setOperation("")
+    setResult(welcomeMessage)
+    firstRef.current.value = null
+    secondRef.current.value = null
+    document.activeElement.blur()
+  }
 
   return (
-    <form id="calculator-form" onSubmit={handleCalculate}>
+    <form id='calculator-form' onSubmit={handleCalculate}>
       <Grid2 container spacing={1}>
         <Grid2 xs={5}>
           <FormControl fullWidth>
             <TextField
-              id="first"
-              label="First Number"
-              variant="outlined"
+              id='first'
+              label='First Number'
+              variant='outlined'
               inputRef={firstRef}
             />
           </FormControl>
@@ -80,7 +80,7 @@ const Calculator = () => {
               }}
               onChange={handleChange}
             >
-              <option value="">Op</option>
+              <option value=''>Op</option>
               <option value={"add"}>+</option>
               <option value={"subtract"}>-</option>
               <option value={"multiply"}>*</option>
@@ -91,23 +91,23 @@ const Calculator = () => {
         <Grid2 xs={5}>
           <FormControl fullWidth>
             <TextField
-              id="second"
-              label="Second Number"
-              variant="outlined"
+              id='second'
+              label='Second Number'
+              variant='outlined'
               inputRef={secondRef}
             />
           </FormControl>
         </Grid2>
         <Grid2 xs={10}>
           <FormControl fullWidth>
-            <Button variant="contained" type="submit">
+            <Button variant='contained' type='submit'>
               Calculate
             </Button>
           </FormControl>
         </Grid2>
         <Grid2 xs={2}>
           <FormControl fullWidth>
-            <Button variant="outlines" onChange={handleReset}>
+            <Button variant='outlines' onClick={handleReset}>
               Reset
             </Button>
           </FormControl>
@@ -118,7 +118,7 @@ const Calculator = () => {
         <Grid2 xs={12}>
           <Box>
             <Paper>
-              <Typography align="center" variant="h3" gutterBottom>
+              <Typography align='center' variant='h3' gutterBottom>
                 {result}
               </Typography>
             </Paper>
@@ -126,7 +126,7 @@ const Calculator = () => {
         </Grid2>
       </Grid2>
     </form>
-  );
+  )
 };
 export default Calculator;
 
