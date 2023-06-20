@@ -13,10 +13,12 @@ import { OutlinedInput } from "@mui/material";
 import axios from "axios";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
 const Calculator = () => {
   const [operation, setOperation] = useState("");
   const [result, setResult] = useState("");
+  const [calculations, setCalculations] = useState([])
   const firstRef = useRef(null);
   const secondRef = useRef(null);
   const welcomeMessage = "Calculator is ready!";
@@ -41,6 +43,7 @@ const Calculator = () => {
       .get(`/api/calculate/${query.operation}/${query.first}/${query.second}`)
       .then((res) => {
         setResult(res.data.result);
+        setCalculations([...calculations, `${query.first} ${query.operation} ${query.second} is ${res.data.result}`])
       })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -51,13 +54,27 @@ const Calculator = () => {
     e.preventDefault();
     setOperation("");
     setResult(welcomeMessage);
+    setCalculations("")
     firstRef.current.value = null;
     secondRef.current.value = null;
     document.activeElement.blur();
   };
 
   return (
-    <form id="calculator-form" onSubmit={handleCalculate}>
+    <>
+    <form
+      id="calculator-form"
+      onSubmit={handleCalculate}
+      style={{ display: "flex", flexDirection: "column" }}
+    >
+      <Button
+        variant="outlined"
+        sx={{ margin: "30px 0", width: "200px", alignSelf: "center" }}
+      >
+        <Link href="/bugs" target="_blank">
+          bug report
+        </Link>
+      </Button>
       <Grid2 container spacing={1}>
         <Grid2 xs={5}>
           <FormControl fullWidth>
@@ -126,33 +143,14 @@ const Calculator = () => {
         </Grid2>
       </Grid2>
     </form>
+    <ul>
+      {calculations.map(calc => {
+        return (
+          <li>{calc}</li>
+        )
+      })}
+    </ul>
+    </>
   );
 };
 export default Calculator;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
