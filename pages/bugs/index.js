@@ -13,8 +13,9 @@ export default function Bugs() {
         <li>5. click calculate</li>
       </ul>
       <h3>What should happen?</h3>
-      <p>Calculate should not produce any errors or warnings.</p>
+      <p>No errors/warnings should appear in the console.</p> 
       <hr />
+
       <h2>2. an error is thrown when the reset button is clicked.</h2>
       <h3>Steps to Reproduce</h3>
       <ul>
@@ -26,8 +27,9 @@ export default function Bugs() {
         <li>6. click reset</li>
       </ul>
       <h3>What should happen?</h3>
-      <p>Reset should not produce an error.</p>
+      <p>Reset should empty all inputs and remove calculations list.</p>
       <hr />
+
       <h2>3. calculator is not working after reset</h2>
       <h3>Steps to Reproduce</h3>
       <ul>
