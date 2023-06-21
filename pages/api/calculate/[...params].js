@@ -42,8 +42,8 @@ function extractParams(queryParams) {
   try {
     const params = {
       operation: queryParams[0],
-      first: queryParams[1],
-      second: queryParams[2],
+      first: parseInt(queryParams[1]),
+      second: parseInt(queryParams[2]),
     };
     return params;
   } catch (e) {
