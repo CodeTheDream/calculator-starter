@@ -1,4 +1,4 @@
-import { add, multiply, divide } from "../../../utils/calculate";
+import { add, subtract, multiply, divide } from "../../../utils/calculate";
 
 export default function handler(req, res) {
   try {
