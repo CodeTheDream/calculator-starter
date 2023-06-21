@@ -1,6 +1,6 @@
 import { add, subtract, multiply, divide } from "../../../utils/calculate";
 
-export default function handler(req, res) {
+export default function handler(request, res) {
   try {
     if (req.method !== "GET") {
       throw new Error(
