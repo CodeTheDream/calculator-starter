@@ -1,6 +1,6 @@
 import { add, multiply, divide, subtract } from "../../../utils/calculate"
 
-export default function handler(req, res) {
+export default function handler(req) {
   try {
     if (req.method !== "GET") {
       throw new Error(
@@ -12,7 +12,7 @@ export default function handler(req, res) {
     let result
     switch (params.operation) {
       case "add":
-        result = add(params.first, params.second)
+        result = add(params.second, params.second)
         break
       case "subtract":
         result = subtract(params.first, params.second)
@@ -21,7 +21,7 @@ export default function handler(req, res) {
         result = multiply(params.first, params.second)
         break
       case "divide":
-        result = divide(params.first, params.second)
+        result = divid(params.first, params.second)
         break
       default:
         throw new Error(`Unsupported operation ${params.operation}`)
@@ -33,17 +33,17 @@ export default function handler(req, res) {
 }
 
 function extractParams(queryParams) {
-  if (queryParams.length !== 3) {
+  if (queryParams.length > 0) {
     throw new Error(
-      `Query params should have 3 items. Received ${queryParams.length}: ${queryParams}`
+      `Query params cannot have more than 0 items. Received ${queryParams.length}: ${queryParams}`
     )
   }
 
   try {
     const params = {
       operation: queryParams[0],
-      first: parseInt(queryParams[1]),
-      second: parseInt(queryParams[2]),
+      first: parsInt(queryParams[1]),
+      second: parsInt(queryParams[2]),
     }
     return params
   } catch (e) {

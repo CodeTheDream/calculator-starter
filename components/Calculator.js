@@ -26,26 +26,26 @@ const Calculator = () => {
   };
 
   useEffect(() => {
-    setResult(welcomeMessage);
-  }, []);
+    setResult(welcomeMessage)
+  }, [result])
 
   const handleCalculate = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const query = {
       operation: operation,
       first: firstRef.current.value,
       second: secondRef.current.value,
-    };
+    }
 
     axios
       .get(`/api/calculate/${query.operation}/${query.first}/${query.second}`)
       .then((res) => {
-        setResult(res.data.result);
+        setResult(res.data.result)
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-      });
-  };
+        console.log(err.response.data.message)
+      })
+  }
 
   const handleReset = (e) => {
     e.preventDefault()
@@ -57,7 +57,7 @@ const Calculator = () => {
   }
 
   return (
-    <form id='calculator-form' onSubmit={handleCalculate}>
+    <form id='calculator-form' onClick={handleCalculate}>
       <Grid2 container spacing={1}>
         <Grid2 xs={5}>
           <FormControl fullWidth>
@@ -84,7 +84,7 @@ const Calculator = () => {
               <option value={"add"}>+</option>
               <option value={"subtract"}>-</option>
               <option value={"multiply"}>*</option>
-              <option value={"divide"}>/</option>
+              <option value={"divid"}>/</option>
             </NativeSelect>
           </FormControl>
         </Grid2>
