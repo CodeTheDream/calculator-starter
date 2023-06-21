@@ -41,9 +41,6 @@ const Calculator = () => {
       .get(`/api/calculate/${query.operation}/${query.first}/${query.second}`)
       .then((res) => {
         setResult(res.data.result);
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
       });
   };
 
@@ -107,9 +104,7 @@ const Calculator = () => {
         </Grid2>
         <Grid2 xs={2}>
           <FormControl fullWidth>
-            <Button variant="outlines" onClick={handleReset}>
-              Reset
-            </Button>
+            <Button variant="outlines">Reset</Button>
           </FormControl>
         </Grid2>
         <Grid2 xs={12}>
@@ -129,30 +124,3 @@ const Calculator = () => {
   );
 };
 export default Calculator;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
