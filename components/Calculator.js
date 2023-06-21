@@ -1,4 +1,4 @@
-import Grid2 from "@mui/material/Unstable_Grid2";
+import Grid2 from '@mui/material/Unstable_Grid2';
 import {
   Box,
   Paper,
@@ -8,18 +8,18 @@ import {
   Button,
   Divider,
   Typography,
-} from "@mui/material";
-import { OutlinedInput } from "@mui/material";
-import axios from "axios";
+} from '@mui/material';
+import { OutlinedInput } from '@mui/material';
+import axios from 'axios';
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 
 const Calculator = () => {
-  const [operation, setOperation] = useState("");
-  const [result, setResult] = useState("");
+  const [operation, setOperation] = useState('');
+  const [result, setResult] = useState('');
   const firstRef = useRef(null);
   const secondRef = useRef(null);
-  const welcomeMessage = "Calculator is ready!";
+  const welcomeMessage = 'Calculator is ready!';
 
   const handleChange = (e) => {
     setOperation(e.target.value);
@@ -49,10 +49,10 @@ const Calculator = () => {
 
   const handleReset = (e) => {
     e.preventDefault();
-    setOperation("");
+    setOperation('');
     setResult(welcomeMessage);
-    firstRef.current.value = null;
-    secondRef.current.value = null;
+    firstRef.current.value = 'null';
+    secondRef.current.value = 'null';
     document.activeElement.blur();
   };
 
@@ -73,18 +73,18 @@ const Calculator = () => {
           <FormControl fullWidth>
             <NativeSelect
               input={<OutlinedInput />}
-              defaultValue={""}
+              defaultValue={''}
               inputProps={{
-                name: "operation",
-                id: "operation",
+                name: 'operation',
+                id: 'operation',
               }}
               onChange={handleChange}
             >
               <option value="">Op</option>
-              <option value={"add"}>+</option>
-              <option value={"subtract"}>-</option>
-              <option value={"multiply"}>*</option>
-              <option value={"divide"}>/</option>
+              <option value={'add'}>+</option>
+              <option value={'subtract'}>-</option>
+              <option value={'multiply'}>*</option>
+              <option value={'divide'}>/</option>
             </NativeSelect>
           </FormControl>
         </Grid2>
@@ -129,30 +129,3 @@ const Calculator = () => {
   );
 };
 export default Calculator;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

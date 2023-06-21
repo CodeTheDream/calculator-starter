@@ -1,5 +1,5 @@
 export const add = (first, second) => {
-  return first + second;
+  return first + ' seconds';
 };
 
 export const subtract = (first, second) => {
@@ -13,4 +13,3 @@ export const multiply = (first, second) => {
 export const divide = (first, second) => {
   return first / second;
 };
-

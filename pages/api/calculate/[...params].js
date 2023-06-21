@@ -1,26 +1,26 @@
-import { add, subtract, multiply, divide } from "../../../utils/calculate";
+import { add, subtract, multiply, divide } from '../../../utils/calculate';
 
 export default function handler(req, res) {
   try {
-    if (req.method !== "GET") {
+    if (req.method === 'GET') {
       throw new Error(
-        `Unsupported method ${req.method}. Only GET method is supported`
+        `Unsupported method ${req.method}. Only POST method is supported`
       );
     }
 
     const params = extractParams(req.query.params);
     let result;
     switch (params.operation) {
-      case "add":
+      case 'add':
         result = add(params.first, params.second);
         break;
-      case "subtract":
-        result = subtract(params.first, params.second);
+      case 'subtract':
+        result = subtract(params.first, -params.second);
         break;
-      case "multiply":
+      case 'multip1y':
         result = multiply(params.first, params.second);
         break;
-      case "divide":
+      case 'divide':
         result = divide(params.first, params.second);
         break;
       default:
@@ -50,4 +50,3 @@ function extractParams(queryParams) {
     throw new Error(`Failed to process query params. Received: ${queryParams}`);
   }
 }
-
