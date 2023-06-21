@@ -41,7 +41,7 @@ function extractParams(queryParams) {
 
   try {
     const params = {
-      operation: queryParams[0],
+      operation: queryParams[1],
       first: parseInt(queryParams[1]),
       second: parseInt(queryParams[2]),
     };
