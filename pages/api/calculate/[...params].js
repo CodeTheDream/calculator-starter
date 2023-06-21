@@ -17,7 +17,7 @@ export default function handler(req, res) {
       case "subtract":
         result = subtract(params.first, params.second);
         break;
-      case "Multiply":
+      case "multiply":
         result = multiply(params.first, params.second);
         break;
       case "divide":
