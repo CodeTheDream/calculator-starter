@@ -1,4 +1,4 @@
-import { add, multiply, divide } from "../../../utils/calculate";
+import { add, subtract, multiply, divide } from "../../../utils/calculate";
 
 export default function handler(req, res) {
   try {
@@ -12,12 +12,17 @@ export default function handler(req, res) {
     let result;
     switch (params.operation) {
       case "add":
-        result = add(params.first, params.second);
+        const firstNumber = parseFloat(params.first);
+        const secondNumber = parseFloat(params.second);
+        if (isNaN(firstNumber) || isNaN(secondNumber)) {
+          throw new Error("Invalid numbers provided");
+        }
+        result = add(firstNumber, secondNumber);
         break;
       case "subtract":
         result = subtract(params.first, params.second);
         break;
-      case "Multiply":
+      case "multiply":
         result = multiply(params.first, params.second);
         break;
       case "divide":
