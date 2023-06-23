@@ -23,6 +23,7 @@ const Calculator = () => {
 
   const handleChange = (e) => {
     setOperation(e.target.value);
+ 
   };
 
   useEffect(() => {
@@ -33,14 +34,18 @@ const Calculator = () => {
     e.preventDefault();
     const query = {
       operation: operation,
-      first: firstRef.current.value,
-      second: secondRef.current.value,
+      first: parseInt(firstRef.current.value),
+      second: parseInt(secondRef.current.value),
     };
+
+
+
 
     axios
       .get(`/api/calculate/${query.operation}/${query.first}/${query.second}`)
       .then((res) => {
         setResult(res.data.result);
+        
       })
       .catch((err) => {
         console.log(err.response.data.message);
@@ -51,8 +56,8 @@ const Calculator = () => {
     e.preventDefault();
     setOperation("");
     setResult(welcomeMessage);
-    firstRef.current.value = null;
-    secondRef.current.value = null;
+    firstRef.current.value = "";
+    secondRef.current.value = "";
     document.activeElement.blur();
   };
 
@@ -107,7 +112,7 @@ const Calculator = () => {
         </Grid2>
         <Grid2 xs={2}>
           <FormControl fullWidth>
-            <Button variant="outlines" onChange={handleReset}>
+            <Button variant="outlines" onClick={handleReset}>
               Reset
             </Button>
           </FormControl>
@@ -129,25 +134,3 @@ const Calculator = () => {
   );
 };
 export default Calculator;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
