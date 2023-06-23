@@ -4,7 +4,7 @@ export default function handler(req, res) {
   try {
     if (req.method !== "GET") {
       throw new Error(
-        `Unsupported method ${req.method}. Only GET method is supported`
+        `Unsupported method ${req.message}. Only GET method is supported`
       );
     }
 
@@ -41,7 +41,7 @@ function extractParams(queryParams) {
 
   try {
     const params = {
-      operation: queryParams[0],
+      operation: queryParams[1],
       first: parseInt(queryParams[1]),
       second: parseInt(queryParams[2]),
     };

@@ -15,10 +15,10 @@ import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 
 const Calculator = () => {
-  const [operation, setOperation] = useState("");
+  const [operation, setOperation] = useState([]);
   const [result, setResult] = useState("");
   const firstRef = useRef(null);
-  const secondRef = useRef(null);
+  const secondRef = useRef("");
   const welcomeMessage = "Calculator is ready!";
 
   const handleChange = (e) => {
